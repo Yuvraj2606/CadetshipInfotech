@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Form with Countdown Timer</title>
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .countdown {
+      font-size: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Form</h1>
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="countdown" id="countdown"></div>
+  </div>
+
+  <script>
+    // Countdown Timer
+    var countdownElement = document.getElementById('countdown');
+    var countdown = 10; // Countdown duration in seconds
+    var countdownInterval = setInterval(updateCountdown, 1000);
+
+    function updateCountdown() {
+      countdown--;
+      countdownElement.innerText = 'Time remaining: ' + countdown + ' seconds';
+
+      if (countdown === 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('contact-form').style.display = 'none';
+        countdownElement.innerText = 'Time is up!';
+      }
+    }
+
+    // Contact Form Submission
+    var contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Retrieve form data
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var message = document.getElementById('message').value;
+
+      // Perform form submission logic (e.g., send data to server)
+
+      // Reset form
+      contactForm.reset();
+      countdown = 10;
+      countdownElement.innerText = 'Time remaining: ' + countdown + ' seconds';
+      document.getElementById('contact-form').style.display = 'block';
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(updateCountdown, 1000);
+    });
+  </script>
+</body>
+</html>
